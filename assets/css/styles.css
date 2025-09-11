@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+div, h1, h2, h3, span{
+  font-family: "Inter", sans-serif !important;
+  font-optical-sizing: auto !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+}
+
+.draggable {
+  cursor: grab;
+}
+
+.dragging {
+  opacity: 0.5;
+  transform: scale(0.95);
+}
+
+.drop-zone {
+  transition: border-color 0.3s ease;
+  height: fit-content;
+  min-height: 384px;
+}
+
+.drop-zone.dragover {
+  border-color: #007bff;
+}
+
+#logo{
+  transition: all 0.3s;
+}
+
+#btnGuardar{
+  transition: all 0.3s;
+}

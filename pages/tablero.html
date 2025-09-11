@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="flex justify-center">
+      <div class="flex flex-col md:flex-row gap-8 p-4 bg-gray-100 h-fit w-9/12">
+        <div
+          id="todo-list"
+          class="flex-1 p-6 bg-white rounded-xl shadow-lg border border-gray-200 h-fit min-h-96"
+        >
+          <h2 class="text-2xl font-bold mb-4 text-gray-800">To Do 📋</h2>
+      
+          <li class="list-none h-full w-full drop-zone" id="listaTodo">
+            <ul class="flex items-center gap-2">
+              <input type="checkbox" class="form-checkbox w-5" disabled/>
+              <input
+                id="todoInp"
+                type="text"
+                placeholder="Escribe una tarea aquí..."
+                class="w-full border-b border-gray-400 focus:border-indigo-500 transition-all duration-300 ease-in-out focus:outline-none me-5 my-2"
+              />
+            </ul>
+          </li>
+          </div>
+
+          <div
+          id="done-list"
+          class="flex-1 p-6 bg-white rounded-xl shadow-lg border border-gray-200 h-fit min-h-96"
+        >
+          <h2 class="text-2xl font-bold mb-4 text-gray-800">In progress ⚙️</h2>
+          <li class="list-none h-full w-full drop-zone" id="listaProgress">
+            
+          </li>
+        </div>
+
+        <div
+          id="done-list"
+          class="flex-1 p-6 bg-white rounded-xl shadow-lg border border-gray-200 h-fit min-h-96"
+        >
+          <h2 class="text-2xl font-bold mb-4 text-gray-800">In review 👁️‍🗨️</h2>
+          <li class="list-none h-full w-full drop-zone" id="listaReview">
+            
+          </li>
+        </div>
+      
+        <div
+          id="done-list"
+          class="flex-1 p-6 bg-white rounded-xl shadow-lg border border-gray-200 h-fit min-h-96"
+        >
+          <h2 class="text-2xl font-bold mb-4 text-gray-800">Done ✅</h2>
+          <li class="list-none drop-zone" id="listaDone">
+            <div class="border border-gray-200" id="lineDone"></div>
+          </li>
+        </div>
+
+      </div>
+    </div>
+</body>
+</html>
