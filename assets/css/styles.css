@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 div, h1, h2, h3, span{
   font-family: "Inter", sans-serif !important;
   font-optical-sizing: auto !important;
@@ -34,4 +35,13 @@ div, h1, h2, h3, span{
 
 #btnGuardar{
   transition: all 0.3s;
+}
+
+.cardTitle{
+  transition: all 0.3s;
+}
+
+.cardTitle:hover{
+  font-weight: 700 !important;
+  text-decoration-line: underline;
 }
