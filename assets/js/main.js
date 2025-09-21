@@ -10,13 +10,6 @@ const divCrearTablero = document.getElementById('crearTablero');
 
 const titleTablero = document.getElementById('title');
 const descripTablero = document.getElementById('description');
-const imagenArea = document.getElementById('image-preview');
-
-const title = document.getElementById('title');
-const descripcion = document.getElementById('description');
-const botonGuardar = document.getElementById('btnGuardar');
-const mensajeDescripError = document.getElementById('descrip-error');
-
 
 let tablerosArr = [];
 
