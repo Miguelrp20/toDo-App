@@ -1,9 +1,13 @@
 const listaTodo = document.getElementById('listaTodo');
 const listaDone = document.getElementById('listaDone');
 const listaCheck = document.getElementById('listaDone');
+<<<<<<< HEAD
 
 const tareaForm = document.getElementById('taskForm');
 
+=======
+const input = document.getElementById('todoInp');
+>>>>>>> a62276ffff39c5a047cb2083375c0c864d6f9dc7
 const listasDrop = document.querySelectorAll('.drop-zone');
 const lineDone = document.getElementById('lineDone');
 
@@ -23,7 +27,15 @@ function checkTareaF(event, ulTarea){
 
                 if (element2.id == tareaId) {
                     element2.done = true;
+<<<<<<< HEAD
                 }
+=======
+
+
+                }
+
+                tarea
+>>>>>>> a62276ffff39c5a047cb2083375c0c864d6f9dc7
             }
         }
 
@@ -55,6 +67,13 @@ function checkTareaF(event, ulTarea){
             listaCheck.insertBefore(ulTarea,lineDone);
         }
     }
+<<<<<<< HEAD
+=======
+
+    console.log(tarea);
+    
+
+>>>>>>> a62276ffff39c5a047cb2083375c0c864d6f9dc7
     localStorage.setItem('Tareas', JSON.stringify(tareasLS));
 }
 
@@ -70,6 +89,7 @@ function mostrarTareas(tarea, taskId){
         event.target.classList.add('dragging');
     });
 
+<<<<<<< HEAD
     ulTarea.addEventListener('dragend', (event) => {
         event.dataTransfer.setData('text/plain', event.target.id);
         event.target.classList.remove('dragging');
@@ -99,6 +119,8 @@ function mostrarTareas(tarea, taskId){
         modalEditTask.style.display = 'flex';
     })
 
+=======
+>>>>>>> a62276ffff39c5a047cb2083375c0c864d6f9dc7
     const checkTarea = document.createElement('input');
     checkTarea.setAttribute('type', 'checkbox');
     checkTarea.classList.add('form-checkbox', 'w-5');
@@ -120,7 +142,11 @@ function mostrarTareas(tarea, taskId){
 
 listasDrop.forEach(dropZone => {
     dropZone.addEventListener('dragover', (event) => {
+<<<<<<< HEAD
         event.preventDefault();   
+=======
+        event.preventDefault();        
+>>>>>>> a62276ffff39c5a047cb2083375c0c864d6f9dc7
         event.currentTarget.classList.add('dragover');
     });
 
@@ -186,7 +212,10 @@ listasDrop.forEach(dropZone => {
             
             draggedElement.classList.remove('dragging');
         }
+<<<<<<< HEAD
         
+=======
+>>>>>>> a62276ffff39c5a047cb2083375c0c864d6f9dc7
         localStorage.setItem('Tareas', JSON.stringify(tareasLS))
     });
 });
@@ -194,6 +223,7 @@ listasDrop.forEach(dropZone => {
 let tareasLS = {};
 let tarea = [];
 
+<<<<<<< HEAD
 tareaForm.addEventListener('submit', (event) => {
     event.preventDefault();
 
@@ -265,3 +295,42 @@ function closeModal() {
     const taskModal = document.getElementById('taskModal');
     taskModal.style.display = 'none';
 }
+=======
+input.addEventListener('keydown', (event) => {
+    if (event.key == 'Enter') {
+        const taskId = 'task-' + Date.now();
+        mostrarTareas(input.value, taskId);
+        const tableroInsertado = 'listaTodo';
+        
+        let tareaDetalle = {
+            id: taskId,
+            titulo: input.value,
+            done:false
+        };
+
+        let tareasA = [];
+
+        tareasA.push(tareaDetalle);
+
+        let tareaObject = {
+            id: tableroInsertado,
+            tareas: tareasA
+        }
+        
+        tareasLS.id = paramId;
+        tareasLS.sectionTareas = tarea;
+
+        
+        const indexExiste =  tarea.findIndex(m => m.id = tableroInsertado)
+        if (indexExiste != -1) {
+            console.log('hay index');            
+            tarea[indexExiste].tareas.push(tareaDetalle);
+        }else{
+            tarea.push(tareaObject);        
+        }
+
+        localStorage.setItem('Tareas', JSON.stringify(tareasLS));
+        input.value = '';
+    }
+});
+>>>>>>> a62276ffff39c5a047cb2083375c0c864d6f9dc7

@@ -254,7 +254,10 @@ function mostrarTableros(infoCard){
     tableros.prepend(cardDiv);
 }
 
+<<<<<<< HEAD
 let cargadoFinal = false;
+=======
+>>>>>>> a62276ffff39c5a047cb2083375c0c864d6f9dc7
 
 function getLS(){
     const tablerosLS = localStorage.getItem('Tableros');
@@ -265,6 +268,9 @@ function getLS(){
             const element = tableroParse[i];
             mostrarTableros(element);
         }
+<<<<<<< HEAD
         cargadoFinal = true;
+=======
+>>>>>>> a62276ffff39c5a047cb2083375c0c864d6f9dc7
     }
 }

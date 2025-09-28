@@ -44,6 +44,7 @@ div, h1, h2, h3, span{
 .cardTitle:hover{
   font-weight: 700 !important;
   text-decoration-line: underline;
+<<<<<<< HEAD
 }
 
 .ulInsertar{
@@ -233,4 +234,6 @@ select {
   color: var(--secondary-color);
   cursor: pointer;
   font-size: 1.2rem;
+=======
+>>>>>>> a62276ffff39c5a047cb2083375c0c864d6f9dc7
 }
