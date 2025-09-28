@@ -1,134 +1,163 @@
-const listaTodo = document.getElementById('listaTodo');
-const listaDone = document.getElementById('listaDone');
-const listaCheck = document.getElementById('listaCheck');
-const input = document.getElementById('todoInp');
-const listasDrop = document.querySelectorAll('.drop-zone');
-
-const lineDone = document.getElementById('lineDone');
+// Carga del componente del header.js
+fetch('../pages/header.html')
+.then(response => response.text())
+.then(data => {
+document.querySelector('header').innerHTML = data;
+});
 
 const tableros = document.getElementById('tableros');
 const divCrearTablero = document.getElementById('crearTablero');
 
 const titleTablero = document.getElementById('title');
 const descripTablero = document.getElementById('description');
+const imagenArea = document.getElementById('image-preview');
+
+const title = document.getElementById('title');
+const descripcion = document.getElementById('description');
+const botonGuardar = document.getElementById('btnGuardar');
+const mensajeDescripError = document.getElementById('descrip-error');
+
 
 let tablerosArr = [];
 
-// function checkTareaF(event, ulTarea){
-//     if (event.checked) {
-//         listaDone.appendChild(ulTarea);
-//     } else {
-//         listaCheck.insertBefore(lineDone, ulTarea);
-//     }
-// }
+let cantidadArchivosSelec = 0;
 
-// function mostrarTareas(tarea){
-//     const ulTarea = document.createElement('ul');
-//     const taskId = 'task-' + Date.now();
-//     ulTarea.id = taskId; 
-
-//     ulTarea.classList.add('flex', 'items-center', 'gap-2', 'draggable');
-//     ulTarea.setAttribute('draggable', 'true');
-
-//     ulTarea.addEventListener('dragstart', (event) => {
-//         event.dataTransfer.setData('text/plain', event.target.id);
-//         event.target.classList.add('dragging');
-//     });
-
-//     const checkTarea = document.createElement('input');
-//     checkTarea.setAttribute('type', 'checkbox');
-//     checkTarea.classList.add('form-checkbox', 'w-5');
-//     checkTarea.id = 'checkTarea';
-
-//     const inputTarea = document.createElement('div');
-//     inputTarea.setAttribute('class', 'w-full border-b border-gray-200 focus:border-indigo-500 transition-all duration-300 ease-in-out focus:outline-none me-5 my-2 font-bold cursor-pointer');
-//     inputTarea.innerHTML = tarea;
-    
-//     ulTarea.appendChild(checkTarea);
-//     ulTarea.appendChild(inputTarea);
-
-//     checkTarea.addEventListener('change', (event) => {
-//         checkTareaF(event.target, ulTarea);
-//     });
-
-//     listaTodo.appendChild(ulTarea);
-// }
-
-// listasDrop.forEach(dropZone => {
-//     dropZone.addEventListener('dragover', (event) => {
-//         event.preventDefault();
-//         event.currentTarget.classList.add('dragover');
-//     });
-
-//     dropZone.addEventListener('dragleave', (event) => {
-//         event.currentTarget.classList.remove('dragover');
-//     });
-
-//     dropZone.addEventListener('drop', (event) => {
-//         event.preventDefault();
-//         event.currentTarget.classList.remove('dragover');
-//         const data = event.dataTransfer.getData('text/plain');
-//         const draggedElement = document.getElementById(data);
-
-//         if (draggedElement) {
-//             event.currentTarget.insertBefore(draggedElement, lineDone);
-//             draggedElement.classList.remove('dragging');
-//         }
-//     });
-// });
-
-// input.addEventListener('keydown', (event) => {
-//     if (event.key == 'Enter') {
-//         mostrarTareas(input.value);
-//         input.value = '';
-//     }
-// });
-
-    let cantidadArchivosSelec = 0;
-
+//Carta con formulario para crear tablero
 function crearTablero(){
-
-    const cardC = document.createElement('div');
-
-    cardC.innerHTML = `
-    <div class="max-w-md w-full p-6 space-y-4 bg-gray-900 border border-gray-800 rounded-lg shadow-xl">
-        <form id="tableroForm">
-          <div class="h-48 border-2 border-dashed border-gray-700 rounded-md flex flex-col items-center justify-center p-4 text-center cursor-pointer transition-colors duration-200 hover:bg-gray-800 mb-2" onclick="imageTablero()" id="image-preview">
-            <svg class="w-12 h-12 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-            </svg>
-            <span class="text-gray-500 font-medium">Importar imagen</span>
-            <input type="file" id="file-input" class="hidden" accept="image/*">
-          </div>
-  
-          <div class="mb-2">
-            <label for="title" class="sr-only">Título</label>
-            <input type="text" id="title" placeholder="Escribe tu título" class="w-full px-4 py-2 border-b-2 border-gray-700 bg-transparent text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors duration-200">
-            <p id="title-error" style="color: red; margin-top: 3px"></p>
-          </div>
-  
-          <div class="mb-2">
-              <label for="description" class="sr-only">Descripción</label>
-              <textarea id="description" rows="3" placeholder="Escribe una descripción" class="w-full px-4 py-2 border-b-2 border-gray-700 bg-transparent text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors duration-200 resize-none"></textarea>
-                <p id="descrip-error" style="color: red; margin-top: 3px"></p>
-          </div>
-  
-          <div class="m-0 p-0 w-full flex justify-end">
-            <button id="btnGuardar" disabled class="px-3 py-1 bg-gray-500 rounded-md text-gray-900 " onclick="guardarTablero()" type="submit">Guardar</button>
-          </div>
-        </form>
-      </div>`;
+    const divTablero = document.getElementById('divTablero');
+    if (!divTablero) {
+        const cardC = document.createElement('div');
+        cardC.setAttribute('id', 'divTablero');
     
-    tableros.insertBefore(cardC, divCrearTablero);
+        cardC.innerHTML = `
+        <div style="height: 450px;" class="max-w-md w-80 p-6 space-y-4 bg-gray-900 border border-gray-800 rounded-lg shadow-xl flex flex-col items-center justify-center" id="divCrearTablero">
+            <form id="tableroForm">
+              <div class="h-48 border-2 border-dashed border-gray-700 rounded-md flex flex-col items-center justify-center p-4 text-center cursor-pointer transition-colors duration-200 hover:bg-gray-800 mb-2" onclick="imageTablero()" id="image-preview">
+                <svg class="w-12 h-12 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                <span class="text-gray-500 font-medium">Importar imagen</span>
+                <input type="file" id="file-input" class="hidden" accept="image/*">
+              </div>
+      
+              <div class="mb-2">
+                <label for="title" class="sr-only">Título</label>
+                <input type="text" id="title" placeholder="Escribe tu título" class="w-full px-4 py-2 border-b-2 border-gray-700 bg-transparent text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors duration-200">
+                <p id="title-error" style="color: red; margin-top: 3px"></p>
+              </div>
+      
+              <div class="mb-2">
+                  <label for="description" class="sr-only">Descripción</label>
+                  <textarea id="description" rows="3" placeholder="Escribe una descripción" class="w-full px-4 py-2 border-b-2 border-gray-700 bg-transparent text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors duration-200 resize-none"></textarea>
+                    <p id="descrip-error" style="color: red; margin-top: 3px"></p>
+              </div>
+      
+              <div class="m-0 p-0 w-full flex justify-end">
+                <button id="btnGuardar" disabled class="px-3 py-1 bg-gray-500 rounded-md text-gray-900 " onclick="guardarTablero()" type="submit">Guardar</button>
+              </div>
+            </form>
+          </div>`;
+        
+        tableros.insertBefore(cardC, divCrearTablero);
+        divCrearTablero.classList.remove('cursor-pointer');
+        
+        const inputFile = document.getElementById('file-input');
+        const tableroForm = document.getElementById('tableroForm');
     
-    const inputFile = document.getElementById('file-input');
-    const tableroForm = document.getElementById('tableroForm');
-    const imagenArea = document.getElementById('image-preview');
+        inputFile.addEventListener('change', (event) => {
+            manejoImg(event)
+        })
+    
+        tableroForm.addEventListener('submit', (event) => {
+            event.preventDefault()
+        })
+    
+        manejoForm()
+    }
 
-    inputFile.addEventListener('change', (event) => {
+}
 
+//Manejo de formulario errores y validaciones
+function manejoForm(){    
+    const title = document.getElementById('title');
+    const descripcion = document.getElementById('description');
+
+    title.addEventListener('input', () => {
+        manejoTitleInput()
+    })
+
+    title.addEventListener('blur', () => {
+        manejoTitleInput()
+    })
+
+    descripcion.addEventListener('input', () => {
+        manejoDescripInput()
+    })
+
+    descripcion.addEventListener('blur', () => {
+        manejoDescripInput()
+    })
+}
+
+function manejoTitleInput(){
+    const title = document.getElementById('title');
+    const titleInput = title.value;
+
+    const descripcion = document.getElementById('description');
+    const descripInput = descripcion.value;
+
+    const botonGuardar = document.getElementById('btnGuardar');
+    const mensajeTitleError = document.getElementById('title-error');
+    
+    if (titleInput.trim() == '') {
+        mensajeTitleError.textContent = 'Ingresa un título válido.';
+        title.style.borderColor = 'red';
+    }else{
+        mensajeTitleError.textContent = '';
+        title.style.borderColor = '';
+    }
+
+    if (descripInput.trim() != '' && titleInput.trim() != '' && cantidadArchivosSelec > 0) {
+        
+        botonGuardar.disabled = false;
+        botonGuardar.classList.add('cursor-pointer', 'hover:bg-gray-800', 'hover:text-gray-500');
+    }else{
+        botonGuardar.disabled = true;
+        botonGuardar.classList.remove('cursor-pointer', 'hover:bg-gray-800', 'hover:text-gray-500');
+    }
+}
+
+function manejoDescripInput(){
+    const descripcion = document.getElementById('description');
+    const descripInput = descripcion.value;
+
+    const title = document.getElementById('title');
+    const titleInput = title.value;
+
+    const mensajeDescripError = document.getElementById('descrip-error');
+    const botonGuardar = document.getElementById('btnGuardar');
+
+
+    if (descripInput.trim() == '') {
+        mensajeDescripError.textContent = 'Ingresa una descripción válida.';
+        descripcion.style.borderColor = 'red';                    
+    }else{
+        mensajeDescripError.textContent = '';
+        descripcion.style.borderColor = '';
+    }
+
+    if (descripInput.trim() != '' && titleInput.trim() != '' && cantidadArchivosSelec > 0) {
+        botonGuardar.disabled = false;
+        botonGuardar.classList.add('cursor-pointer', 'hover:bg-gray-800', 'hover:text-gray-500');
+    }else{
+        botonGuardar.disabled = true;
+        botonGuardar.classList.remove('cursor-pointer', 'hover:bg-gray-800', 'hover:text-gray-500');
+    }
+}
+
+function manejoImg(event){
     cantidadArchivosSelec = event.target.files.length;
-
+    const imagenArea = document.getElementById('image-preview');
     const title = document.getElementById('title');
     const descripcion = document.getElementById('description');
 
@@ -136,17 +165,13 @@ function crearTablero(){
     const descripInput = descripcion.value;
     const botonGuardar = document.getElementById('btnGuardar');
 
-    if (descripInput != '' && titleInput != '' && cantidadArchivosSelec > 0) {
-            console.log('tiene dato title');
-            
-            botonGuardar.disabled = false;
-            botonGuardar.classList.add('cursor-pointer', 'hover:bg-gray-800', 'hover:text-gray-500');
-        }else{
-            botonGuardar.disabled = true;
-            botonGuardar.classList.remove('cursor-pointer', 'hover:bg-gray-800', 'hover:text-gray-500');
-        }
-
-    console.log('seleccionada');
+    if (descripInput.trim() != '' && titleInput.trim() != '' && cantidadArchivosSelec > 0) {
+        botonGuardar.disabled = false;
+        botonGuardar.classList.add('cursor-pointer', 'hover:bg-gray-800', 'hover:text-gray-500');
+    }else{
+        botonGuardar.disabled = true;
+        botonGuardar.classList.remove('cursor-pointer', 'hover:bg-gray-800', 'hover:text-gray-500');
+    }
 
     const file = event.target.files[0];
     const reader = new FileReader();
@@ -165,105 +190,81 @@ function crearTablero(){
         imagenArea.appendChild(img);
     }
     reader.readAsDataURL(file)
-    })
-
-    tableroForm.addEventListener('submit', (event) => {
-        event.preventDefault()
-    })
-
-    manejoForm()
 }
 
-function manejoForm(){
-    
-    const title = document.getElementById('title');
-    const mensajeTitleError = document.getElementById('title-error');
-
-    const descripcion = document.getElementById('description');
-    const mensajeDescripError = document.getElementById('descrip-error');
-
-    title.addEventListener('input', () => {
-
-    const titleInput = title.value;
-    const descripInput = descripcion.value;
-    const botonGuardar = document.getElementById('btnGuardar');
-
-
-        if (titleInput == '') {
-            mensajeTitleError.textContent = 'Ingresa un título válido.';
-            title.style.borderColor = 'red';
-        }else{
-            mensajeTitleError.textContent = '';
-            title.style.borderColor = '';
-        }
-
-        if (descripInput != '' && titleInput != '' && cantidadArchivosSelec > 0) {
-            console.log('tiene dato title');
-            
-            botonGuardar.disabled = false;
-            botonGuardar.classList.add('cursor-pointer', 'hover:bg-gray-800', 'hover:text-gray-500');
-        }else{
-            botonGuardar.disabled = true;
-            botonGuardar.classList.remove('cursor-pointer', 'hover:bg-gray-800', 'hover:text-gray-500');
-        }
-    })
-
-    descripcion.addEventListener('input', () => {
-    const titleInput = title.value;
-    const descripInput = descripcion.value;
-    const botonGuardar = document.getElementById('btnGuardar');
-
-        if (descripInput == '') {
-            mensajeDescripError.textContent = 'Ingresa una descripción válida.';
-            descripcion.style.borderColor = 'red';                    
-        }else{
-            mensajeDescripError.textContent = '';
-            descripcion.style.borderColor = '';
-        }
-
-        if (descripInput != '' && titleInput != '' && cantidadArchivosSelec > 0) {
-            console.log('tiene dato descrip');
-            
-            botonGuardar.disabled = false;
-            botonGuardar.classList.add('cursor-pointer', 'hover:bg-gray-800', 'hover:text-gray-500');
-        }else{
-            botonGuardar.disabled = true;
-            botonGuardar.classList.remove('cursor-pointer', 'hover:bg-gray-800', 'hover:text-gray-500');
-        }
-    })
-}
-
+//Funcion para llamar inputFile
 function imageTablero(){
     let inputFile = document.getElementById('file-input');
     inputFile.click()
 }
 
+//Funcion para guardar tablero
 function guardarTablero(){
-    // tablerosArr.push({
-    //     tabImagenTitle: titleTablero.value,
-    //     tabImagenDescrip: descripTablero.value,
-    //     tabImagenUrl: imagenArea.childNodes[0].src
-    // })
+    const titleTablero = document.getElementById('title');
+    const descripTablero = document.getElementById('description');
+    const imagenArea = document.getElementById('image-preview');
+    const divTablero = document.getElementById('divTablero');
 
-    // console.log(tablerosArr);
 
-    const cardTableroCargado = `<div class="max-w-md w-full p-6 space-y-4 bg-gray-900 border border-gray-800 rounded-lg shadow-xl">
-          <div class="h-48 border-2 border-dashed border-gray-700 rounded-md flex flex-col items-center justify-center p-4 text-center transition-colors duration-200 " id="image-preview">
-            <img src="${imagenArea.childNodes[0].src}" alt="${imagenArea.childNodes[0].alt}">
-          </div>
-  
-          <div>
-            <label for="title" class="sr-only">Título</label>
-            <div type="text" id="title" placeholder="Escribe tu título" class="w-full px-4 py-2 border-b-2 border-gray-700 bg-transparent text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors duration-200">${titleTablero.value}
-            </div>
-  
-            <div>
-                <label for="description" class="sr-only">Descripción</label>
-                <div id="description" rows="3" placeholder="Escribe una descripción" class="w-full px-4 py-2 border-b-2 border-gray-700 bg-transparent text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors duration-200 resize-none">${descripTablero.value}</div>
-            </div>
-          </div>
-      </div>`;
+    const tabTGuardado = titleTablero.value;
+    const tabDGuardado = descripTablero.value;
 
-    tableros.appendChild(cardTableroCargado);
+    //Imagen url
+    const tabIGuardado = imagenArea.childNodes[4];
     
+    const infoCard = {
+        tabImagenTitle: tabTGuardado,
+        tabImagenDescrip: tabDGuardado,
+        tabImagenUrl: tabIGuardado.src,
+        tabId: tablerosArr.length + 1
+    }
+
+    tablerosArr.push(infoCard);
+    
+    localStorage.setItem('Tableros', JSON.stringify(tablerosArr));
+
+    divTablero.remove();
+    divCrearTablero.classList.add('cursor-pointer');
+
+    mostrarTableros(infoCard);
+}
+
+function mostrarTableros(infoCard){
+    const cardDiv = document.createElement('div');
+
+    cardDiv.innerHTML =  `<div style="height: 450px;" class="w-80 flex flex-col items-center justify-center p-4 bg-gray-900 border border-dashed border-gray-700 rounded-lg">
+            <div class="h-48 border-2 border-dashed border-gray-700 rounded-md flex flex-col items-center justify-center p-4 text-center transition-colors duration-200 mb-4">
+            <img class="'w-full h-full object-cover rounded-md" src="${infoCard.tabImagenUrl}" alt="${infoCard.tabImagenTitle}">
+            </div>
+    
+            <div class="mb-2 w-full">
+            <label for="title" class="sr-only">Título</label>
+            <div class="w-full px-4 py-2 bg-transparent text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors duration-200">
+                <a href="/pages/tablero.html?id=${infoCard.tabId}" class="cursor-pointer text-2xl cardTitle">
+                ${infoCard.tabImagenTitle}
+                </a>
+            </div>
+            </div>
+    
+            <div class="mb-2 w-full">
+                <label for="description" class="sr-only">Descripción</label>
+                <div rows="3" class="w-full px-4 py-2 bg-transparent text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors duration-200 resize-none">${infoCard.tabImagenDescrip}</div>
+            </div>
+        </div>`;
+    tableros.prepend(cardDiv);
+}
+
+let cargadoFinal = false;
+
+function getLS(){
+    const tablerosLS = localStorage.getItem('Tableros');
+    
+    if (tablerosLS) {
+        const tableroParse = JSON.parse(tablerosLS);
+        for (let i = 0; i < tableroParse.length; i++) {
+            const element = tableroParse[i];
+            mostrarTableros(element);
+        }
+        cargadoFinal = true;
+    }
 }
