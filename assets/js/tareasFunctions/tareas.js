@@ -1,13 +1,7 @@
 const listaTodo = document.getElementById('listaTodo');
 const listaDone = document.getElementById('listaDone');
 const listaCheck = document.getElementById('listaDone');
-<<<<<<< HEAD
-
-const tareaForm = document.getElementById('taskForm');
-
-=======
 const input = document.getElementById('todoInp');
->>>>>>> a62276ffff39c5a047cb2083375c0c864d6f9dc7
 const listasDrop = document.querySelectorAll('.drop-zone');
 const lineDone = document.getElementById('lineDone');
 
@@ -27,15 +21,11 @@ function checkTareaF(event, ulTarea){
 
                 if (element2.id == tareaId) {
                     element2.done = true;
-<<<<<<< HEAD
-                }
-=======
 
 
                 }
 
                 tarea
->>>>>>> a62276ffff39c5a047cb2083375c0c864d6f9dc7
             }
         }
 
@@ -67,13 +57,10 @@ function checkTareaF(event, ulTarea){
             listaCheck.insertBefore(ulTarea,lineDone);
         }
     }
-<<<<<<< HEAD
-=======
 
     console.log(tarea);
     
 
->>>>>>> a62276ffff39c5a047cb2083375c0c864d6f9dc7
     localStorage.setItem('Tareas', JSON.stringify(tareasLS));
 }
 
@@ -89,38 +76,6 @@ function mostrarTareas(tarea, taskId){
         event.target.classList.add('dragging');
     });
 
-<<<<<<< HEAD
-    ulTarea.addEventListener('dragend', (event) => {
-        event.dataTransfer.setData('text/plain', event.target.id);
-        event.target.classList.remove('dragging');
-    });
-
-    ulTarea.addEventListener('click', (event) => {
-        console.log('mostrar modal edit', event.target);
-
-        console.log('id',ulTarea.id);
-
-        console.log('tareasss',
-            tareasLS.sectionTareas
-        );
-        
-        
-
-        const modalEditTask = document.getElementById('taskModalEdit');
-
-        const title = document.getElementById('task-title-edit');
-        const description = document.getElementById('task-description-edit');
-        const date = document.getElementById('task-dueDate-edit');
-        const priority = document.getElementById('task-priority-edit');
-        const tags = document.getElementById('task-tags-edit');
-
-
-
-        modalEditTask.style.display = 'flex';
-    })
-
-=======
->>>>>>> a62276ffff39c5a047cb2083375c0c864d6f9dc7
     const checkTarea = document.createElement('input');
     checkTarea.setAttribute('type', 'checkbox');
     checkTarea.classList.add('form-checkbox', 'w-5');
@@ -142,11 +97,7 @@ function mostrarTareas(tarea, taskId){
 
 listasDrop.forEach(dropZone => {
     dropZone.addEventListener('dragover', (event) => {
-<<<<<<< HEAD
-        event.preventDefault();   
-=======
         event.preventDefault();        
->>>>>>> a62276ffff39c5a047cb2083375c0c864d6f9dc7
         event.currentTarget.classList.add('dragover');
     });
 
@@ -212,10 +163,6 @@ listasDrop.forEach(dropZone => {
             
             draggedElement.classList.remove('dragging');
         }
-<<<<<<< HEAD
-        
-=======
->>>>>>> a62276ffff39c5a047cb2083375c0c864d6f9dc7
         localStorage.setItem('Tareas', JSON.stringify(tareasLS))
     });
 });
@@ -223,79 +170,6 @@ listasDrop.forEach(dropZone => {
 let tareasLS = {};
 let tarea = [];
 
-<<<<<<< HEAD
-tareaForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    const title = document.getElementById('task-title').value;
-    const descripcion = document.getElementById('task-description').value;
-    const date = document.getElementById('task-dueDate').value;
-    const priority = document.getElementById('task-priority').value;
-    const etiquetas = document.getElementById('task-tags').value;
-
-    let tarea = {
-        titulo: title,
-        descripcion: descripcion,
-        date: date,
-        priority: priority,
-        etiquetas: etiquetas
-    }
-
-    console.log(tarea);
-
-    guardarTarea(tarea);
-})
-
-function guardarTarea(tareaParam){
-    const taskId = 'task-' + Date.now();
-    
-    mostrarTareas(tareaParam.titulo, taskId);
-
-    const tableroInsertado = 'listaTodo';
-    
-    let tareaDetalle = {
-        id: taskId,
-        titulo: tareaParam.titulo,
-        descripcion: tareaParam.descripcion,
-        date: tareaParam.date,
-        priority: tareaParam.priority,
-        done:false
-    };
-
-    let tareasA = [];
-
-    tareasA.push(tareaDetalle);
-
-    let tareaObject = {
-        id: tableroInsertado,
-        tareas: tareasA
-    }
-    
-    tareasLS.id = paramId;
-    tareasLS.sectionTareas = tarea;
-
-    
-    const indexExiste =  tarea.findIndex(m => m.id = tableroInsertado)
-    if (indexExiste != -1) {    
-        tarea[indexExiste].tareas.push(tareaDetalle);
-    }else{
-        tarea.push(tareaObject);        
-    }
-
-    localStorage.setItem('Tareas', JSON.stringify(tareasLS));
-    closeModal();
-}
-
-function openModal() {
-    const taskModal = document.getElementById('taskModal');
-    taskModal.style.display = 'flex';
-}
-
-function closeModal() {
-    const taskModal = document.getElementById('taskModal');
-    taskModal.style.display = 'none';
-}
-=======
 input.addEventListener('keydown', (event) => {
     if (event.key == 'Enter') {
         const taskId = 'task-' + Date.now();
@@ -333,4 +207,3 @@ input.addEventListener('keydown', (event) => {
         input.value = '';
     }
 });
->>>>>>> a62276ffff39c5a047cb2083375c0c864d6f9dc7
